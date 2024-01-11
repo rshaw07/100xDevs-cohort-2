@@ -45,5 +45,75 @@
   const app = express();
   
   app.use(bodyParser.json());
+  let arr = [];
+  let currentId = 1;
+
+  app.get("/todos", function(req,res){
+    res.status(200).json(arr);
+  })
+
+  app.get("/todos/:id", function(req,res){
+    const Id = req.params.id;
+    for(let i =0;i<arr.length;i++){
+      if(arr[i].id==Id){
+        return res.status(200).send(arr[i]);
+      }
+    }
+    res.status(404).send("Not Found")
+  })
   
+  app.post("/todos", function(req, res){
+    const title = req.body.title;
+    const completed = req.body.completed;
+    const description = req.body.description;
+    arr.push({
+      "title" : title,
+      "completed" : completed,
+      "description" : description,
+      "id" : currentId
+    })
+    currentId++;
+    res.status(201).json({id : currentId-1})
+  })
+  
+  app.put("/todos/:id", function(req, res){
+    const id = req.params.id;
+    let x = 0;
+    const title = req.body.title;
+    const completed = req.body.completed;
+    for(let i = 0;i<arr.length;i++){
+      if(arr[i].id==id){
+        arr[i].title = title;
+        arr[i].completed = completed;
+        x++;
+      }
+    }
+    if(x>0){
+      res.sendStatus(200);
+    }
+    else{
+      res.status(404).send("Not Found")
+    }
+  })
+
+  app.delete("/todos/:id", function(req, res){
+    let brr = [];
+    const id = req.params.id;
+    let x = 0;
+    for(let i=0;i<arr.length;i++){
+      if(arr[i].id==id){
+        x++;
+        continue;
+      }
+      brr.push(arr[i]);
+    }
+    arr = brr;
+    if(x>0){
+      res.sendStatus(200);
+    }
+    else{
+      res.status(404).send("Not Found")
+    }
+  })
+
   module.exports = app;

@@ -5,6 +5,18 @@
  */
 
 function sleep(milliseconds) {
+    const bt = new Date().getTime();
+    return new Promise(function(resolve){
+        let a =0;
+        while(true){
+            a++;
+            const at = new Date().getTime();
+            if((at-bt)/1000==milliseconds/1000){
+                resolve();
+                return at-bt;
+            }
+        }
+    })
 }
 
 module.exports = sleep;
