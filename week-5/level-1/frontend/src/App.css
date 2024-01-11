@@ -1,0 +1,29 @@
+*{
+  margin: 4px;
+  padding: 4px;
+}
+.button {
+  padding: 10px;
+  margin: 8px;
+  background-color: rgba(0,123,255,255);
+  border-color: white;
+  border-radius: 6px;
+  margin-right: 10px;
+  color: white;
+}
+.main {
+  display: flex;
+}
+.card {
+  border-radius: 7px;
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+p {
+  color: #5a6067
+}
+input {
+  width: 250px;
+}
