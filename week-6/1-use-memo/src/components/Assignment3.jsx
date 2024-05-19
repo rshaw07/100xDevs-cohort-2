@@ -12,7 +12,13 @@ const Assignment3 = () => {
     ]);
 
     // Your code starts here
-    const totalValue = 0;
+    const totalValue = useMemo(()=>{
+        let value = 0;
+        for(let i=0;i<items.length;i++){
+            value+= items[i].value;
+        }
+        return value;
+    },[items])
     // Your code ends here
     return (
         <div>
@@ -21,7 +27,7 @@ const Assignment3 = () => {
                     <li key={index}>{item.name} - Price: ${item.value}</li>
                 ))}
             </ul>
-            <p>Total Value: {totalValue}</p>
+            <p>Total Value: ${totalValue}</p>
         </div>
     );
 };

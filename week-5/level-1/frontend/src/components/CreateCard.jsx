@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export function CreateCard(){
+export function CreateCard({Rerender}){
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -10,7 +10,10 @@ export function CreateCard(){
     
     return <div className="main">
         <div>
-        <input type="text" placeholder="Id (only during deletion or updating)" onChange={function(e){setId(e.target.value)}} /><br />
+        <input type="text" placeholder="Id (only during deletion or updating)" onChange={function(e){
+            const data = e.target.value;
+            setId(data.trim());
+        }} /><br />
         <input type="text" placeholder="Name" onChange={function(e){setName(e.target.value)}} /><br />
         <input type="text" placeholder="Description" onChange={function(e){setDescription(e.target.value)}} /><br />
         <input type="text" placeholder='Interests (separated by ",")' onChange={function(e){
@@ -38,6 +41,7 @@ export function CreateCard(){
             })
             .then(async function(res){{
                 const json = await res.json();
+                Rerender(r => r + 1);
                 alert("Card added");
             }})
         }}>Create card</button>
@@ -58,6 +62,7 @@ export function CreateCard(){
             })
             .then(async function(res){{
                 const json = await res.json();
+                Rerender(r => r + 1);
                 alert("Card updated");
               }})
         }}>Update card</button>
@@ -74,6 +79,7 @@ export function CreateCard(){
             .then(async function(res){{
                 const json = await res.json();
                 console.log(json);
+                Rerender(r => r + 1);
                 alert("Card deleted")
               }})
         }}>Delete card</button>
